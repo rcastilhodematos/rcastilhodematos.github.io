@@ -1,0 +1,130 @@
+    <!DOCTYPE html>
+<html>
+<head>
+    <title>ToMT Calculator</title>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+        }
+
+        h1 {
+            color: #fff;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #444;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input{
+            width: 100%;
+            padding: 8px 0px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            color: #333;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p#result {
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Boss Defeat Time Calculator</h1>
+    
+    <div class="container">
+        <label for="bossHP">Enter the boss's HP:</label>
+        <input type="text" id="bossHP" onkeydown="handleKeyDown(event)" onkeyup="formatNumber(this)" /><br />
+        
+        <label for="partyDPS">Enter your party's DPS:</label>
+        <input type="text" id="partyDPS" onkeydown="handleKeyDown(event)" onkeyup="formatNumber(this)" /><br />
+
+        <button onclick="calculateTime()">Calculate</button>
+
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function calculateTime() {
+            bossHP = parseFloat((document.getElementById('bossHP').value).replaceAll(",",""));
+            partyDPS = parseFloat((document.getElementById('partyDPS').value).replaceAll(",",""));
+            
+            result = ""
+
+            if(partyDPS){
+                // Calculate time to defeat the boss in seconds
+                seconds = Math.ceil(bossHP / partyDPS);
+
+                // Calculate time in days, hours, minutes, and remaining seconds
+                days = Math.floor(seconds / 86400);
+                seconds %= 86400;
+                hours = Math.floor(seconds / 3600);
+                seconds %= 3600;
+                minutes = Math.floor(seconds / 60);
+                seconds %= 60;
+
+                // Display the result
+                result = `It will take ${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds to defeat the boss.`;
+            }
+           
+            document.getElementById('result').textContent = result;
+            
+        }
+
+        function formatNumber(inputElement) {
+            
+            // Remove any existing commas and non-digit characters
+            var inputValue = inputElement.value.replace(/[^\d]/g, "");
+            
+            // Format the number with commas
+            var formattedValue = numberWithCommas(inputValue);
+            
+            // Update the input field with the formatted value
+            inputElement.value = formattedValue;
+        }
+
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        function handleKeyDown(event){
+            if(event.keyCode == 13){
+                calculateTime();
+            }
+        }
+    </script>
+</body>
+</html>
