@@ -10,6 +10,10 @@
             text-align: center;
         }
 
+        img {
+            width: 100px;
+            height: 120px
+        }
 
         .container {
             max-width: 400px;
@@ -69,8 +73,8 @@
     </style>
 </head>
 <body>
+    <img src="banner.png" alt="Trials of Mount Tiamat's banner">
     <h1>Boss Defeat Time Calculator</h1>
-    
     <div class="container">
         <label for="bossHP">Enter the boss's HP:</label>
         <input type="text" id="bossHP" onkeydown="handleKeyDown(event)" onkeyup="formatNumber(this)" /><br />
