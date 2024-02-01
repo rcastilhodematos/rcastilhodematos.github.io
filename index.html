@@ -86,7 +86,7 @@
         <button onclick="calculateTime()">Calculate</button>
 
         <p id="result"></p>
-        <button id="copyButton" onclick="copyToClipboard()">Copy to Clipboard</button>
+        <button id="copyButton" onmousedown="copyToClipboard()" onmouseup="resetText()">Copy to Clipboard</button>
     </div>
 
     <script>
@@ -128,6 +128,13 @@
         function copyToClipboard(){
             var resultP = document.getElementById('result');
             navigator.clipboard.writeText(resultP.textContent);
+            var copyButton = document.getElementById('copyButton');
+            copyButton.textContent = "Copied"
+        }
+
+        function resetText(){
+            var copyButton = document.getElementById('copyButton');
+            copyButton.textContent = "Copy to Clipboard"
         }
 
         function formatNumber(inputElement) {
